@@ -1,0 +1,38 @@
+.env
+.DS_Store
+/uploads
+/node_modules
+yarn-error.log
+
+.vscode
+
+**/migrations/.snapshot*
+
+.idea
+
+coverage
+
+!src/**
+
+medusa-db.sql
+.cache
+
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Build
+/dist
+./tsconfig.tsbuildinfo
+.medusa
+build
+tsconfig.resolved.json
+
+# Lock files
+package-lock.json
+
+# Node environment
+.node-version
