@@ -6,13 +6,13 @@ import { generateRandomString } from "./random-string-generator";
 export interface ProductGeneratorOptions {
   numProducts: number;
   handleId: number;
-
   variantsPerProduct: number;
   priceRange?: {
     min: number;
     max: number;
   };
   currencies?: string[];
+  imagesAmount?: number;
 }
 
 export interface SheetVariantCombination extends Record<string, string> {
@@ -305,17 +305,7 @@ export function generateSheetProducts(
       weight: Math.floor(Math.random() * 400 + 600), // Random weight between 600-1000g
       status: ProductStatus.PUBLISHED,
       shipping_profile_id: shippingProfile.id,
-      images: [
-        {
-          url: `https://res.cloudinary.com/do9lggzv1/image/fetch/c_limit,w_3840/f_auto/q_auto/v1/https://sadrlmedusaprod.blob.core.windows.net/medusaprod/medusaprod/produktbilleder/unikka/hmkuv0902007hb.jpg?_a=BAVAZGE70`,
-        },
-        {
-          url: `https://res.cloudinary.com/do9lggzv1/image/fetch/c_limit,w_3840/f_auto/q_auto/v1/https://sadrlmedusaprod.blob.core.windows.net/medusaprod/medusaprod/produktbilleder/unikka/hmkuv0902007blb.jpg?_a=BAVAZGE70`,
-        },
-        {
-          url: `https://res.cloudinary.com/do9lggzv1/image/fetch/c_limit,w_3840/f_auto/q_auto/v1/https://sadrlmedusaprod.blob.core.windows.net/medusaprod/medusaprod/produktbilleder/hmkuv0902007lgb.jpg?_a=BAVAZGE70`,
-        },
-      ],
+      images: getImages(options.imagesAmount),
       options: [
         {
           title: "Size",
@@ -352,4 +342,50 @@ export function generateSheetProducts(
   }
 
   return products;
+}
+
+/**
+ * Get images for a product
+ * @param amount Number of images to return (optional)
+ * @returns Array of image objects - default 3 images or specified amount
+ */
+function getImages(amount?: number): Array<{ url: string }> {
+  const defaultImages = images();
+
+  // If no amount specified, return default 3 images
+  if (!amount || amount <= 0) {
+    return defaultImages;
+  }
+
+  // If amount is less than or equal to default images length, return slice
+  if (amount <= defaultImages.length) {
+    return defaultImages.slice(0, amount);
+  }
+
+  // If amount is more than available images, cycle through them
+  const result: Array<{ url: string }> = [];
+  for (let i = 0; i < amount; i++) {
+    const imageIndex = i % defaultImages.length;
+    result.push(defaultImages[imageIndex]);
+  }
+
+  return result;
+}
+
+/**
+ * Default image set for products
+ * @returns Array of 3 default images
+ */
+function images(): Array<{ url: string }> {
+  return [
+    {
+      url: `https://res.cloudinary.com/do9lggzv1/image/fetch/c_limit,w_3840/f_auto/q_auto/v1/https://sadrlmedusaprod.blob.core.windows.net/medusaprod/medusaprod/produktbilleder/unikka/hmkuv0902007hb.jpg?_a=BAVAZGE70`,
+    },
+    {
+      url: `https://res.cloudinary.com/do9lggzv1/image/fetch/c_limit,w_3840/f_auto/q_auto/v1/https://sadrlmedusaprod.blob.core.windows.net/medusaprod/medusaprod/produktbilleder/unikka/hmkuv0902007blb.jpg?_a=BAVAZGE70`,
+    },
+    {
+      url: `https://res.cloudinary.com/do9lggzv1/image/fetch/c_limit,w_3840/f_auto/q_auto/v1/https://sadrlmedusaprod.blob.core.windows.net/medusaprod/medusaprod/produktbilleder/hmkuv0902007lgb.jpg?_a=BAVAZGE70`,
+    },
+  ];
 }

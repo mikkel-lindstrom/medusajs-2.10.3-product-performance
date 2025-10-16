@@ -407,6 +407,19 @@ export default async function seedDemoData({ container }: ExecArgs) {
             variantsPerProduct: 100, // Each with up to 100 variants for performance testing
             priceRange: { min: 25, max: 150 },
             currencies: ["eur", "usd"],
+            imagesAmount: 100,
+          },
+          categoryResult,
+          shippingProfile,
+          defaultSalesChannel
+        ),
+        ...generateSheetProducts(
+          {
+            numProducts: 1, // Generate 1 different sheet product
+            handleId: 51,
+            variantsPerProduct: 100, // Each with up to 100 variants for performance testing
+            priceRange: { min: 25, max: 150 },
+            currencies: ["eur", "usd"],
           },
           categoryResult,
           shippingProfile,
