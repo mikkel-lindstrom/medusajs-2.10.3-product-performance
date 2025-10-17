@@ -2,6 +2,8 @@
   Medusa - Performance
 </h1>
 
+<h4>I tried to make a test on a previous version (2.8.3) and it seems its also an issue there, so dont take the version too much into account</h4>
+
 ## Setup
 
 <div>
