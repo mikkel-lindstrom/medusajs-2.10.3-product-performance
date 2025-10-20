@@ -353,10 +353,15 @@ export default async function seedDemoData({ container }: ExecArgs) {
         ...generateSheetProducts(
           {
             numProducts: 1, // Generate 1 different sheet product
+            title_suffix: "_small_images",
             handleId: 1,
-            variantsPerProduct: 1000, // Each with up to 1000 variants for performance testing
+            variantsPerProduct: 100, // Each with up to 100 variants for performance testing
             priceRange: { min: 25, max: 150 },
             currencies: ["eur", "usd"],
+            images: {
+              amount: 5,
+              size_width: 200,
+            },
           },
           categoryResult,
           shippingProfile,
@@ -365,49 +370,32 @@ export default async function seedDemoData({ container }: ExecArgs) {
         ...generateSheetProducts(
           {
             numProducts: 1, // Generate 1 different sheet product
+            title_suffix: "_large_images",
+            handleId: 11,
+            variantsPerProduct: 100, // Each with up to 100 variants for performance testing
+            priceRange: { min: 25, max: 150 },
+            currencies: ["eur", "usd"],
+            images: {
+              amount: 5,
+              size_width: 3840,
+            },
+          },
+          categoryResult,
+          shippingProfile,
+          defaultSalesChannel
+        ),
+        ...generateSheetProducts(
+          {
+            numProducts: 1, // Generate 2 different sheet products
+            title_suffix: "_small_images",
             handleId: 2,
-
-            variantsPerProduct: 800, // Each with up to 800 variants for performance testing
-            priceRange: { min: 25, max: 150 },
-            currencies: ["eur", "usd"],
-          },
-          categoryResult,
-          shippingProfile,
-          defaultSalesChannel
-        ),
-        ...generateSheetProducts(
-          {
-            numProducts: 1, // Generate 1 different sheet product
-            handleId: 3,
-
-            variantsPerProduct: 500, // Each with up to 500 variants for performance testing
-            priceRange: { min: 25, max: 150 },
-            currencies: ["eur", "usd"],
-          },
-          categoryResult,
-          shippingProfile,
-          defaultSalesChannel
-        ),
-        ...generateSheetProducts(
-          {
-            numProducts: 1, // Generate 1 different sheet product
-            handleId: 4,
-            variantsPerProduct: 250, // Each with up to 250 variants for performance testing
-            priceRange: { min: 25, max: 150 },
-            currencies: ["eur", "usd"],
-          },
-          categoryResult,
-          shippingProfile,
-          defaultSalesChannel
-        ),
-        ...generateSheetProducts(
-          {
-            numProducts: 1, // Generate 1 different sheet product
-            handleId: 5,
             variantsPerProduct: 100, // Each with up to 100 variants for performance testing
             priceRange: { min: 25, max: 150 },
             currencies: ["eur", "usd"],
-            imagesAmount: 100,
+            images: {
+              amount: 100,
+              size_width: 200,
+            },
           },
           categoryResult,
           shippingProfile,
@@ -415,35 +403,16 @@ export default async function seedDemoData({ container }: ExecArgs) {
         ),
         ...generateSheetProducts(
           {
-            numProducts: 1, // Generate 1 different sheet product
-            handleId: 51,
+            numProducts: 1, // Generate 2 different sheet products
+            title_suffix: "_large_images",
+            handleId: 22,
             variantsPerProduct: 100, // Each with up to 100 variants for performance testing
             priceRange: { min: 25, max: 150 },
             currencies: ["eur", "usd"],
-          },
-          categoryResult,
-          shippingProfile,
-          defaultSalesChannel
-        ),
-        ...generateSheetProducts(
-          {
-            numProducts: 1, // Generate 1 different sheet product
-            handleId: 6,
-            variantsPerProduct: 50, // Each with up to 50 variants for performance testing
-            priceRange: { min: 25, max: 150 },
-            currencies: ["eur", "usd"],
-          },
-          categoryResult,
-          shippingProfile,
-          defaultSalesChannel
-        ),
-        ...generateSheetProducts(
-          {
-            numProducts: 1, // Generate 1 different sheet product
-            handleId: 7,
-            variantsPerProduct: 10, // Each with up to 10 variants for performance testing
-            priceRange: { min: 25, max: 150 },
-            currencies: ["eur", "usd"],
+            images: {
+              amount: 100,
+              size_width: 3840,
+            },
           },
           categoryResult,
           shippingProfile,

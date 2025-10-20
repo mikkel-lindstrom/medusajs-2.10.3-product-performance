@@ -12,7 +12,11 @@ export interface ProductGeneratorOptions {
     max: number;
   };
   currencies?: string[];
-  imagesAmount?: number;
+  images: {
+    amount: number;
+    size_width: number;
+  };
+  title_suffix?: string;
 }
 
 export interface SheetVariantCombination extends Record<string, string> {
@@ -273,7 +277,8 @@ export function generateSheetProducts(
       }));
 
       return {
-        title: `${combination.Size} / ${combination.Color} / ${combination.Height}`,
+        title:
+          `${combination.Size} / ${combination.Color} / ${combination.Height}`.trim(),
         sku: variantSku,
         options: combination,
         prices,
@@ -294,7 +299,9 @@ export function generateSheetProducts(
       categoryResult[0]?.id;
 
     const product: GeneratedProduct = {
-      title: `${sheetType} Bed Sheet Set ${productNumber}`,
+      title: `${sheetType} Bed Sheet Set ${productNumber} ${
+        options.title_suffix ? options.title_suffix : ""
+      }`,
       category_ids: categoryId ? [categoryId] : [],
       description:
         sheetDescriptions[sheetType] ||
@@ -305,7 +312,7 @@ export function generateSheetProducts(
       weight: Math.floor(Math.random() * 400 + 600), // Random weight between 600-1000g
       status: ProductStatus.PUBLISHED,
       shipping_profile_id: shippingProfile.id,
-      images: getImages(options.imagesAmount),
+      images: getImages(options.images.amount, options.images.size_width),
       options: [
         {
           title: "Size",
@@ -349,8 +356,8 @@ export function generateSheetProducts(
  * @param amount Number of images to return (optional)
  * @returns Array of image objects - default 3 images or specified amount
  */
-function getImages(amount?: number): Array<{ url: string }> {
-  const defaultImages = images();
+function getImages(amount?: number, size?: number): Array<{ url: string }> {
+  const defaultImages = images(size);
 
   // If no amount specified, return default 3 images
   if (!amount || amount <= 0) {
@@ -376,16 +383,22 @@ function getImages(amount?: number): Array<{ url: string }> {
  * Default image set for products
  * @returns Array of 3 default images
  */
-function images(): Array<{ url: string }> {
+function images(size?: number): Array<{ url: string }> {
   return [
     {
-      url: `https://res.cloudinary.com/do9lggzv1/image/fetch/c_limit,w_3840/f_auto/q_auto/v1/https://sadrlmedusaprod.blob.core.windows.net/medusaprod/medusaprod/produktbilleder/unikka/hmkuv0902007hb.jpg?_a=BAVAZGE70`,
+      url: `https://res.cloudinary.com/do9lggzv1/image/fetch/c_limit,w_${
+        size || 1920
+      }/f_auto/q_auto/v1/https://sadrlmedusaprod.blob.core.windows.net/medusaprod/medusaprod/produktbilleder/unikka/hmkuv0902007hb.jpg?_a=BAVAZGE70`,
     },
     {
-      url: `https://res.cloudinary.com/do9lggzv1/image/fetch/c_limit,w_3840/f_auto/q_auto/v1/https://sadrlmedusaprod.blob.core.windows.net/medusaprod/medusaprod/produktbilleder/unikka/hmkuv0902007blb.jpg?_a=BAVAZGE70`,
+      url: `https://res.cloudinary.com/do9lggzv1/image/fetch/c_limit,w_${
+        size || 1920
+      }/f_auto/q_auto/v1/https://sadrlmedusaprod.blob.core.windows.net/medusaprod/medusaprod/produktbilleder/unikka/hmkuv0902007blb.jpg?_a=BAVAZGE70`,
     },
     {
-      url: `https://res.cloudinary.com/do9lggzv1/image/fetch/c_limit,w_3840/f_auto/q_auto/v1/https://sadrlmedusaprod.blob.core.windows.net/medusaprod/medusaprod/produktbilleder/hmkuv0902007lgb.jpg?_a=BAVAZGE70`,
+      url: `https://res.cloudinary.com/do9lggzv1/image/fetch/c_limit,w_${
+        size || 1920
+      }/f_auto/q_auto/v1/https://sadrlmedusaprod.blob.core.windows.net/medusaprod/medusaprod/produktbilleder/hmkuv0902007lgb.jpg?_a=BAVAZGE70`,
     },
   ];
 }
