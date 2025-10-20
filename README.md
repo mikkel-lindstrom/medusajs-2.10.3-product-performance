@@ -11,6 +11,7 @@
 
 <p>npx medusa db:create --db <name></p>
 <p>npx medusa db:setup --db <name></p>
+<p>npx medusa user -e <email> -p <password></p>
 </div>
 
 <p>run the seed "yarn seed" command to populate store with products and variants</p>
